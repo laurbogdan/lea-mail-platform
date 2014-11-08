@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.lea.model.Mail" table="MAIL">
+		<id name="id" type="string">
+			<column name="id" length="20" />
+			<generator class="assigned" />
+		</id>
+		
+		<property name="subject" type="string">
+			<column name="subject" length="50" not-null="true" />
+		</property>
+		<property name="message" type="string">
+			<column name="message" length="500" not-null="true" />
+		</property>
+		<property name="is_read" type="boolean">
+			<column name="is_read" not-null="true" />
+		</property>
+		
+		<set name="id_user_from" table="MAIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="username" length="45" not-null="true" />
+            </key>
+            <one-to-many class="com.lea.model.User" />
+        </set>
+	</class>
+</hibernate-mapping>
