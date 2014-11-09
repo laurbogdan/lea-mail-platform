@@ -1,12 +1,19 @@
 package com.lea.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lea.model.Mail;
+import com.lea.service.MailService;
+
 @Controller
 public class MainController {
+
+	@Autowired
+	private MailService mailService;
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -24,7 +31,13 @@ public class MainController {
 		ModelAndView model = new ModelAndView();
 		model.addObject("message", "Here you can send mail!");
 		model.setViewName("sendMail");
+		Mail mail = new Mail();
+		mail.setId_user_from("2");
+		mail.setId_user_to("1");
+		mail.setId("100");
+		mail.setMessage("Primul mail trimi din aplicatie");
+		mail.setSubject("First mail");
+		mailService.sendMail(mail);
 		return model;
 	}
-
 }

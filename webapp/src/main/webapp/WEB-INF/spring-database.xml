@@ -12,9 +12,9 @@
 		destroy-method="close">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/test" />
-		<property name="username" value="root" />
-		<!-- <property name="password" value="password" /> -->
+		<property name="url" value="jdbc:mysql://www.db4free.net:3306/phoenix221" />
+		<property name="username" value="phoenixroot" />
+		<property name="password" value="P@ssword" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -22,8 +22,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
-			<!--  	<value>Users.hbm.xml</value>
-				<value>Mail.hbm.xml</value> -->
+			<value>Users.hbm.xml</value>
+			<value>Mail.hbm.xml</value> 
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -58,7 +58,7 @@
 
 	<aop:config>
 		<aop:pointcut id="userServicePointCut"
-			expression="execution(* com.mkyong.users.service.*Service.*(..))" />
+			expression="execution(* com.lea.service.*Service*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
 	</aop:config>
 

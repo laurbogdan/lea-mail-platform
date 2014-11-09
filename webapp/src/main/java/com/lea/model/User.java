@@ -4,7 +4,7 @@ public class User {
 	private String id;
 	private String username;
 	private String password;
-	private String mail;
+	private String email;
 
 	public String getId() {
 		return id;
@@ -30,12 +30,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
