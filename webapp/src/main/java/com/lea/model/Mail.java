@@ -1,5 +1,7 @@
 package com.lea.model;
 
+import java.sql.Timestamp;
+
 public class Mail {
 
 	private String id;
@@ -8,6 +10,7 @@ public class Mail {
 	private String id_user_to;
 	private String id_user_from;
 	private boolean is_read;
+	private Timestamp date;
 
 	public String getId() {
 		return id;
@@ -55,6 +58,21 @@ public class Mail {
 
 	public void setIs_read(boolean is_read) {
 		this.is_read = is_read;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public Timestamp getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date
+	 *            the date to set
+	 */
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 
 }

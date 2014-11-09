@@ -17,13 +17,16 @@
 		<property name="is_read" type="boolean">
 			<column name="is_read" not-null="true" />
 		</property>
+		<property name="date">
+			<column name="date" not-null="false" />
+		</property>
 
-		<many-to-one name="id_user_from" class="com.lea.model.Mail" fetch="select">
+		<property name="id_user_from" type="string">
 			<column name="id_user_from" length="50" not-null="true" />
-		</many-to-one>
+		</property>
 
-		<many-to-one name="id_user_to" class="com.lea.model.Mail" fetch="select">
+		<property name="id_user_to" type="string">
 			<column name="id_user_to" length="50" not-null="true" />
-		</many-to-one>
+		</property>
 	</class>
 </hibernate-mapping>

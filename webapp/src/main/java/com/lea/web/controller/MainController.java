@@ -1,5 +1,7 @@
 package com.lea.web.controller;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,19 +34,23 @@ public class MainController {
 		ModelAndView model = new ModelAndView();
 		model.addObject("message", "Here you can send mail!");
 		model.setViewName("sendMail");
+
 		Mail mail = new Mail();
 		mail.setId_user_from("2");
 		mail.setId_user_to("1");
 		mail.setId("100");
 		mail.setMessage("Primul mail trimi din aplicatie");
 		mail.setSubject("First mail");
-		// mailService.sendMail(mail);
+		mail.setDate(new Timestamp(12132158));
+		mailService.sendMail(mail);
+
 		User user = new User();
 		user.setEmail("mail");
-		user.setId("100");
+		user.setId("101");
 		user.setPassword("123");
-		user.setUsername("username");
+		user.setUsername("usernou");
 		mailService.addUser(user);
+
 		return model;
 	}
 }
