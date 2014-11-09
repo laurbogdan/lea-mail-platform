@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lea.model.Mail;
+import com.lea.model.User;
 import com.lea.service.MailService;
 
 @Controller
@@ -37,7 +38,13 @@ public class MainController {
 		mail.setId("100");
 		mail.setMessage("Primul mail trimi din aplicatie");
 		mail.setSubject("First mail");
-		mailService.sendMail(mail);
+		// mailService.sendMail(mail);
+		User user = new User();
+		user.setEmail("mail");
+		user.setId("100");
+		user.setPassword("123");
+		user.setUsername("username");
+		mailService.addUser(user);
 		return model;
 	}
 }
