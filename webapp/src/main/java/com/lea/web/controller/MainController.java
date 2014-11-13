@@ -42,13 +42,13 @@ public class MainController {
 		mail.setMessage("Primul mail trimi din aplicatie");
 		mail.setSubject("First mail");
 		mail.setDate(new Timestamp(12132158));
-		mailService.sendMail(mail);
+	//	mailService.sendMail(mail);
 
 		User user = new User();
 		user.setEmail("mail");
-		user.setId("101");
+		user.setId("4");
 		user.setPassword("123");
-		user.setUsername("usernou");
+		user.setUsername("cristi");
 		mailService.addUser(user);
 
 		return model;
