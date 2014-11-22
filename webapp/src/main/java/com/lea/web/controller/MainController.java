@@ -27,8 +27,6 @@ public class MainController {
 	public ModelAndView defaultPage() {
 
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Test");
-		model.addObject("message", "This is default page!");
 		model.setViewName("index");
 		return model;
 	}
@@ -38,7 +36,7 @@ public class MainController {
 
 		ModelAndView model = new ModelAndView();
 		model.addObject("message", "Here you can send mail!");
-		model.setViewName("sendMail");
+		model.setViewName("mainPage");
 
 		Mail mail = new Mail();
 		mail.setId_user_from("2");
@@ -47,7 +45,7 @@ public class MainController {
 		mail.setMessage("Primul mail trimi din aplicatie");
 		mail.setSubject("First mail");
 		mail.setDate(new Timestamp(12132158));
-	//	mailService.sendMail(mail);
+		// mailService.sendMail(mail);
 
 		User user = new User();
 		user.setEmail("mail");
@@ -66,7 +64,9 @@ public class MainController {
 		LoginResponse response = customerServcice.login(username, password);
 		ModelAndView model = new ModelAndView();
 		if (response.isSucces()) {
-			model.setViewName("sendMail");
+			model.setViewName("mainPage");
+		} else {
+			model.setViewName("nologin");
 		}
 		return model;
 

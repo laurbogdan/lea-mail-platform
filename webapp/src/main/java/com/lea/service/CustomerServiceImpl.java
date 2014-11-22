@@ -23,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
 			return response;
 		}
 		response.setSucces(true);
+		response.setUser(user);
 		return response;
 	}
 

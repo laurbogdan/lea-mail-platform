@@ -1,6 +1,6 @@
 <html>
   <head><title>Example :: Spring Application</title></head>
   <body>
-    <p>Mesaj: ${message}</p>
+    <p>V-ati logat cu succes!</p>
   </body>
 </html>
