@@ -26,8 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 		return response;
 	}
 
-	public CustomerRepository getRepository() {
-		return repository;
+	public void setRepository(CustomerRepository repository) {
+		this.repository = repository;
 	}
 
 }
