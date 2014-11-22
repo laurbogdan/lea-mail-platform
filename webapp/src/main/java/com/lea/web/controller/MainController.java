@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lea.model.Mail;
 import com.lea.model.User;
-import com.lea.model.response.LoginResponse;
 import com.lea.service.CustomerService;
 import com.lea.service.MailService;
 
@@ -57,17 +56,19 @@ public class MainController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/login**" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login(
-			@RequestParam(value = "username", required = true) String username,
-			@RequestParam(value = "password", required = true) String password) {
-		LoginResponse response = customerServcice.login(username, password);
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password) {
+		// LoginResponse response = customerServcice.login(username, password);
 		ModelAndView model = new ModelAndView();
-		if (response.isSucces()) {
-			model.setViewName("mainPage");
-		} else {
-			model.setViewName("nologin");
-		}
+		// if (response.isSucces()) {
+		// model.setViewName("mainPage");
+		// } else {
+		// model.setViewName("nologin");
+		// }
+		model.addObject("success", "true");
+		model.setViewName("index");
 		return model;
 
 	}
