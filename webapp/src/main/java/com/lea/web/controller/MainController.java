@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lea.model.Mail;
 import com.lea.model.User;
+import com.lea.model.response.LoginResponse;
+import com.lea.service.CustomerService;
 import com.lea.service.MailService;
 
 @Controller
@@ -17,6 +20,8 @@ public class MainController {
 
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private CustomerService customerServcice;
 
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
@@ -52,5 +57,18 @@ public class MainController {
 		mailService.addUser(user);
 
 		return model;
+	}
+
+	@RequestMapping(value = { "/login**" }, method = RequestMethod.POST)
+	public ModelAndView login(
+			@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password) {
+		LoginResponse response = customerServcice.login(username, password);
+		ModelAndView model = new ModelAndView();
+		if (response.isSucces()) {
+			model.setViewName("sendMail");
+		}
+		return model;
+
 	}
 }

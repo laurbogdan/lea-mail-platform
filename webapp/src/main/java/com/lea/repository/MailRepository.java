@@ -9,15 +9,15 @@ public class MailRepository {
 
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	public void addMail(Mail mail) {
 		sessionFactory.getCurrentSession().save(mail);
 	}
 
 	public void addUser(User user) {
 		sessionFactory.getCurrentSession().save(user);
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

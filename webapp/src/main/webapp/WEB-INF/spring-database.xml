@@ -38,9 +38,17 @@
 	<bean id="mailRepository" class="com.lea.repository.MailRepository">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="customerRepository" class="com.lea.repository.CustomerRepository">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<bean id="mailService" class="com.lea.service.MailServiceImpl">
 		<property name="repository" ref="mailRepository" />
+	</bean>
+	
+	<bean id="customerService" class="com.lea.service.CustomerServiceImpl">
+		<property name="repository" ref="customerRepository" />
 	</bean>
 
 	<bean id="transactionManager"
