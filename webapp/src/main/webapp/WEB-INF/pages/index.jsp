@@ -10,8 +10,7 @@
 
 	<div id="wrapper">
 
-		<form name="login-form" class="login-form" submi
-			action="javascript:functie()">
+		<form name="login-form" class="login-form" id="form">
 
 			<div class="header">
 				<h1>Login Form</h1>
@@ -21,16 +20,17 @@
 
 			<div class="content">
 				<input name="username" type="text" class="input username"
-					placeholder="Username" />
+					id="username" placeholder="Username" />
 				<div class="user-icon"></div>
 				<input name="password" type="password" class="input password"
-					placeholder="Password" />
+					id="password" placeholder="Password" />
 				<div class="pass-icon"></div>
 			</div>
 
 			<div class="footer">
-				<input type="submit" href="/login" name="submit" value="Login" class="button" />
-				<input type="submit" name="submit" value="Register" class="register" />
+				<input type="submit" name="submit" value="Login" class="button"
+					onClick="functie()" /> <input type="submit" name="submit"
+					value="Register" class="register" />
 			</div>
 
 		</form>
@@ -42,11 +42,23 @@
 	<script type="text/javascript">
 		function functie() {
 			$.ajax({
-				type : 'GET',
-				url : "/login",
-				success : function(data) {
-					var a = "${success}"; 
-					alert(a);
+				type : "GET",
+				url : "http://localhost:8080/login",
+				async : false,
+				cache : false,
+				timeout : 10000,
+				data : "username=" + document.getElementById('username').value
+						+ "&password="
+						+ document.getElementById('password').value,
+				error : function() {
+					alert("Nu merge!");
+				},
+				success : function() {
+					var ok = "true";
+					if (ok.localeCompare("${success}"))
+						alert("V-ati logat!");
+					else
+						alert("Datele sunt incorecte!");
 				}
 			});
 		}

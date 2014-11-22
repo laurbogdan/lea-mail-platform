@@ -11,12 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lea.model.Mail;
 import com.lea.model.User;
+import com.lea.model.response.LoginResponse;
 import com.lea.service.CustomerService;
 import com.lea.service.MailService;
 
 @Controller
 public class MainController {
 
+	private ModelAndView model = new ModelAndView();
 	@Autowired
 	private MailService mailService;
 	@Autowired
@@ -25,7 +27,6 @@ public class MainController {
 	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
 	public ModelAndView defaultPage() {
 
-		ModelAndView model = new ModelAndView();
 		model.setViewName("index");
 		return model;
 	}
@@ -33,7 +34,6 @@ public class MainController {
 	@RequestMapping(value = { "/sendMail**" }, method = RequestMethod.POST)
 	public ModelAndView sendMail() {
 
-		ModelAndView model = new ModelAndView();
 		model.addObject("message", "Here you can send mail!");
 		model.setViewName("mainPage");
 
@@ -56,19 +56,18 @@ public class MainController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/login**" }, method = RequestMethod.GET)
 	public ModelAndView login(
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password) {
-		// LoginResponse response = customerServcice.login(username, password);
-		ModelAndView model = new ModelAndView();
-		// if (response.isSucces()) {
-		// model.setViewName("mainPage");
-		// } else {
-		// model.setViewName("nologin");
-		// }
-		model.addObject("success", "true");
+			@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password) {
+		LoginResponse response = customerServcice.login(username, password);
+		if (response.isSucces()) {
+			model.addObject("success", "true");
+		} else {
+			model.addObject("success", "false");
+		}
 		model.setViewName("index");
+		System.out.println(response.isSucces());
 		return model;
 
 	}
