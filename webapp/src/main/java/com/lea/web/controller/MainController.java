@@ -67,13 +67,7 @@ public class MainController {
 	public LoginResponse login(
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password) {
-		// LoginResponse response = customerServcice.login(username, password);
-		LoginResponse response = new LoginResponse();
-		if (username.equals("laurentiu"))
-			response.setSuccess(true);
-		else
-			response.setSuccess(false);
-		return response;
+		return customerServcice.login(username, password);
 
 	}
 
