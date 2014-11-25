@@ -13,16 +13,16 @@ public class CustomerServiceImpl implements CustomerService {
 		User user = repository.getUser(username);
 		LoginResponse response = new LoginResponse();
 		if (user == null) {
-			response.setSucces(false);
+			response.setSuccess(false);
 			response.setError(LoginErrors.USER_DOES_NOT_EXIST);
 			return response;
 		}
 		if (!user.getPassword().equals(password)) {
-			response.setSucces(false);
+			response.setSuccess(false);
 			response.setError(LoginErrors.INVALID_PASSWORD);
 			return response;
 		}
-		response.setSucces(true);
+		response.setSuccess(true);
 		response.setUser(user);
 		return response;
 	}

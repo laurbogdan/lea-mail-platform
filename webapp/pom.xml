@@ -147,6 +147,11 @@
 			<artifactId>subethasmtp</artifactId>
 			<version>3.1.7</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
 
 	</dependencies>
 

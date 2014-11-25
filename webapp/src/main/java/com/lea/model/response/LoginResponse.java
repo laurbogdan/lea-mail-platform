@@ -3,16 +3,16 @@ package com.lea.model.response;
 import com.lea.model.User;
 
 public class LoginResponse {
-	private boolean succes;
+	private boolean success;
 	private LoginErrors error;
 	private User user;
 
-	public boolean isSucces() {
-		return succes;
+	public boolean isSuccess() {
+		return success;
 	}
 
-	public void setSucces(boolean succes) {
-		this.succes = succes;
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 	public LoginErrors getError() {

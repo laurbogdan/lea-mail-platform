@@ -10,7 +10,8 @@
 
 	<div id="wrapper">
 
-		<form name="login-form" class="login-form" id="form">
+		<form name="login-form" class="login-form" id="form"
+			onSubmit="javascript:functie()">
 
 			<div class="header">
 				<h1>Login Form</h1>
@@ -28,9 +29,8 @@
 			</div>
 
 			<div class="footer">
-				<input type="submit" name="submit" value="Login" class="button"
-					onClick="functie()" /> <input type="submit" name="submit"
-					value="Register" class="register" />
+				<input type="submit" name="submit" value="Login" class="button"/>
+				<input type="submit" name="submit" value="Register" class="register" />
 			</div>
 
 		</form>
@@ -38,30 +38,25 @@
 	</div>
 	<div class="gradient"></div>
 
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
+   
 		function functie() {
-			$.ajax({
-				type : "GET",
-				url : "http://localhost:8080/login",
-				async : false,
-				cache : false,
-				timeout : 10000,
-				data : "username=" + document.getElementById('username').value
-						+ "&password="
-						+ document.getElementById('password').value,
-				error : function() {
-					alert("Nu merge!");
-				},
-				success : function() {
-					var ok = "true";
-					if (ok.localeCompare("${success}"))
-						alert("V-ati logat!");
-					else
-						alert("Datele sunt incorecte!");
-				}
-			});
-		}
+						var username = document.getElementById("username").value;
+						var password = document.getElementById("password").value;
+						$.ajax({
+							type: 'POST',
+						    url: "login",
+						    async: false,
+						    data: "username=" + username + "&password=" +  password,
+						    success: function(data) {
+						        alert(data.success);
+						    },
+						    error:function() {
+						    	alert("fds");
+						    }
+						});
+					}
 	</script>
 
 </body>

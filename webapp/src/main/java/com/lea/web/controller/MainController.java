@@ -3,10 +3,12 @@ package com.lea.web.controller;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lea.model.Mail;
@@ -18,24 +20,21 @@ import com.lea.service.MailService;
 @Controller
 public class MainController {
 
-	private ModelAndView model = new ModelAndView();
 	@Autowired
 	private MailService mailService;
 	@Autowired
 	private CustomerService customerServcice;
 
-	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
-	public ModelAndView defaultPage() {
-
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView welcome() {
+		ModelAndView model = new ModelAndView();
 		model.setViewName("index");
 		return model;
+
 	}
 
-	@RequestMapping(value = { "/sendMail**" }, method = RequestMethod.POST)
-	public ModelAndView sendMail() {
-
-		model.addObject("message", "Here you can send mail!");
-		model.setViewName("mainPage");
+	@RequestMapping(value = { "/sendMail**" }, method = RequestMethod.PUT)
+	public void sendMail() {
 
 		Mail mail = new Mail();
 		mail.setId_user_from("2");
@@ -53,22 +52,18 @@ public class MainController {
 		user.setUsername("cristi");
 		mailService.addUser(user);
 
-		return model;
 	}
 
-	@RequestMapping(value = { "/login**" }, method = RequestMethod.GET)
-	public ModelAndView login(
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public LoginResponse login(
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password) {
-		LoginResponse response = customerServcice.login(username, password);
-		if (response.isSucces()) {
-			model.addObject("success", "true");
-		} else {
-			model.addObject("success", "false");
-		}
-		model.setViewName("index");
-		System.out.println(response.isSucces());
-		return model;
+		// LoginResponse response = customerServcice.login(username, password);
+		LoginResponse response = new LoginResponse();
+		response.setSuccess(true);
+		return response;
 
 	}
+
 }
