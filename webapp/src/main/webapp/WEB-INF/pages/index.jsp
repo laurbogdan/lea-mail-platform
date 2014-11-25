@@ -38,7 +38,7 @@
 	</div>
 	<div class="gradient"></div>
 	
-	<div id="wrong" align="center" style="visibility:hidden">
+	<div id="wrong" align="center" style="display:none">
 	<p>Datele introduse sunt incorecte</p>
 	
 	</div>
@@ -55,13 +55,12 @@
 						    async: false,
 						    data: "username=" + username + "&password=" +  password,
 						    success: function(data) {
-						    	alert("dsa");
-						    	document.getElementById("wrong").style.display;
-						    
-						       
+						    	if(data.success==true) window.location.href="mainPage";
+						    	else document.getElementById("wrong").style.display = "block";
+						    		       
 						    },
 						    error:function() {
-						    	alert("fds");
+						    	alert("Eroare! Va rugam reincercati mai tarziu!");
 						    }
 						});
 					}
