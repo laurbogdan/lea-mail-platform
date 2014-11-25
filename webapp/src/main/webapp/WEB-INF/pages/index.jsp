@@ -11,7 +11,7 @@
 	<div id="wrapper">
 
 		<form name="login-form" class="login-form" id="form"
-			onSubmit="javascript:functie()">
+			onSubmit="javascript:functie(); return false;">
 
 			<div class="header">
 				<h1>Login Form</h1>
@@ -37,6 +37,11 @@
 
 	</div>
 	<div class="gradient"></div>
+	
+	<div id="wrong" align="center" style="visibility:hidden">
+	<p>Datele introduse sunt incorecte</p>
+	
+	</div>
 
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
@@ -50,7 +55,10 @@
 						    async: false,
 						    data: "username=" + username + "&password=" +  password,
 						    success: function(data) {
-						        alert(data.success);
+						    	alert("dsa");
+						    	document.getElementById("wrong").style.display;
+						    
+						       
 						    },
 						    error:function() {
 						    	alert("fds");

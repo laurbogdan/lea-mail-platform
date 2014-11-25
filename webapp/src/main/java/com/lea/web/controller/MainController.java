@@ -33,6 +33,14 @@ public class MainController {
 
 	}
 
+	@RequestMapping(value = "mainPage", method = RequestMethod.GET)
+	public ModelAndView mainPage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("mainPage");
+		return model;
+
+	}
+
 	@RequestMapping(value = { "/sendMail**" }, method = RequestMethod.PUT)
 	public void sendMail() {
 
