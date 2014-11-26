@@ -3,7 +3,6 @@ package com.lea.repository;
 import org.hibernate.SessionFactory;
 
 import com.lea.model.Mail;
-import com.lea.model.User;
 
 public class MailRepository {
 
@@ -11,10 +10,6 @@ public class MailRepository {
 
 	public void addMail(Mail mail) {
 		sessionFactory.getCurrentSession().save(mail);
-	}
-
-	public void addUser(User user) {
-		sessionFactory.getCurrentSession().save(user);
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

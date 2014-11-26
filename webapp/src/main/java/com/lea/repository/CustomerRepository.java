@@ -21,6 +21,14 @@ public class CustomerRepository {
 		return results.get(0);
 	}
 
+	public void addUser(User user) {
+		sessionFactory.getCurrentSession().save(user);
+	}
+
+	public User getUserById(String id) {
+		return (User) sessionFactory.getCurrentSession().get(User.class, id);
+	}
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

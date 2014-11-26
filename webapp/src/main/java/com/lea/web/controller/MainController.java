@@ -34,8 +34,11 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "mainPage", method = RequestMethod.GET)
-	public ModelAndView mainPage() {
+	public ModelAndView mainPage(
+			@RequestParam(value = "id", required = true) String id) {
 		ModelAndView model = new ModelAndView();
+		User user = customerServcice.getUser(id);
+		model.addObject("user", user);
 		model.setViewName("mainPage");
 		return model;
 
@@ -58,7 +61,7 @@ public class MainController {
 		user.setId("4");
 		user.setPassword("123");
 		user.setUsername("cristi");
-		mailService.addUser(user);
+		customerServcice.addUser(user);
 
 	}
 

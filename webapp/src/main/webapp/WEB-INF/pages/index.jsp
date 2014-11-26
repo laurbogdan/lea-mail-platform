@@ -55,7 +55,7 @@
 						    async: false,
 						    data: "username=" + username + "&password=" +  password,
 						    success: function(data) {
-						    	if(data.success==true) window.location.href="mainPage";
+						    	if(data.success==true) window.location.href="mainPage?id="+data.user.id;
 						    	else document.getElementById("wrong").style.display = "block";
 						    		       
 						    },
