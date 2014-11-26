@@ -1,5 +1,7 @@
 package com.lea.service;
 
+import java.util.List;
+
 import com.lea.model.Mail;
 import com.lea.repository.MailRepository;
 
@@ -9,6 +11,10 @@ public class MailServiceImpl implements MailService {
 
 	public void sendMail(Mail mail) {
 		repository.addMail(mail);
+	}
+
+	public List<Mail> getInbox(String id) {
+		return repository.getInbox(id);
 	}
 
 	public void setRepository(MailRepository repository) {

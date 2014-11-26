@@ -1,6 +1,7 @@
 package com.lea.web.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -71,6 +72,14 @@ public class MainController {
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password) {
 		return customerServcice.login(username, password);
+
+	}
+
+	@RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Mail> getInbox(
+			@RequestParam(value = "id", required = true) String id) {
+		return mailService.getInbox(id);
 
 	}
 
