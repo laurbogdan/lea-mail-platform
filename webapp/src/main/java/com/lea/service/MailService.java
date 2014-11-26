@@ -9,4 +9,6 @@ public interface MailService {
 	public void sendMail(Mail mail);
 
 	public List<Mail> getInbox(String id);
+
+	public List<Mail> getOutbox(String id);
 }

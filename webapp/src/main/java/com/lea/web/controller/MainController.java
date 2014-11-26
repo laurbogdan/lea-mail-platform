@@ -45,7 +45,7 @@ public class MainController {
 
 	}
 
-	@RequestMapping(value = { "/sendMail**" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
 	public void sendMail() {
 
 		Mail mail = new Mail();
@@ -55,14 +55,14 @@ public class MainController {
 		mail.setMessage("Primul mail trimi din aplicatie");
 		mail.setSubject("First mail");
 		mail.setDate(new Timestamp(12132158));
-		// mailService.sendMail(mail);
+		mailService.sendMail(mail);
 
 		User user = new User();
 		user.setEmail("mail");
 		user.setId("4");
 		user.setPassword("123");
 		user.setUsername("cristi");
-		customerServcice.addUser(user);
+		// customerServcice.addUser(user);
 
 	}
 
@@ -80,6 +80,14 @@ public class MainController {
 	public List<Mail> getInbox(
 			@RequestParam(value = "id", required = true) String id) {
 		return mailService.getInbox(id);
+
+	}
+
+	@RequestMapping(value = "/outbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Mail> getOutbox(
+			@RequestParam(value = "id", required = true) String id) {
+		return mailService.getOutbox(id);
 
 	}
 

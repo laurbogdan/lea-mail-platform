@@ -9,6 +9,10 @@
     	<button onClick="getInbox()">Inbox</button>
     </div>
     
+    <div align="right">
+    	<button onClick="getOutbox()">Outbox</button>
+    </div>
+    
     <div align="center">
     <p>
    	ID: ${user.id} <br>
@@ -30,6 +34,24 @@
 		$.ajax({
 			type: 'GET',
 		    url: "inbox",
+		    async: false,
+		    data: "id=${user.id}",
+		    success: function(data) {
+		    	for (var i = 0; i < data.length; i++) { 
+		    		document.write(data[i].message);
+		    	}
+		    		       
+		    },
+		    error:function() {
+		    	alert("Eroare! Va rugam reincercati mai tarziu!");
+		    }
+		});
+	}
+	
+	function getOutbox(){	
+		$.ajax({
+			type: 'GET',
+		    url: "outbox",
 		    async: false,
 		    data: "id=${user.id}",
 		    success: function(data) {

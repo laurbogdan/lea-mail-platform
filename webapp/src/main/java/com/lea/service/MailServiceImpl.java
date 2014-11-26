@@ -17,6 +17,10 @@ public class MailServiceImpl implements MailService {
 		return repository.getInbox(id);
 	}
 
+	public List<Mail> getOutbox(String id) {
+		return repository.getOutbox(id);
+	}
+
 	public void setRepository(MailRepository repository) {
 		this.repository = repository;
 	}

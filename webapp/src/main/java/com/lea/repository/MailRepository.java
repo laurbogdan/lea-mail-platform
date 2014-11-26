@@ -24,6 +24,15 @@ public class MailRepository {
 		return results;
 	}
 
+	public List<Mail> getOutbox(String id) {
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				"from Mail where id_user_from=:id_user_from");
+		query.setParameter("id_user_from", id);
+		List<Mail> results = query.list();
+
+		return results;
+	}
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
