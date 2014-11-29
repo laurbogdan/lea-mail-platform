@@ -12,8 +12,8 @@
 			</h1>
 			<nav class="main-nav">
 				<ul>
-					<li class="active"><br /> <a href="#" class="btn btn-primary">Compose
-							new</a>
+					<li class="active"><br /> <a href="#"
+						onclick="composeMail();" class="btn btn-primary">Compose new</a>
 						<ul id="ul_menu">
 							<li id="inbox" class="active"><a href="#"
 								onclick="getMail('inbox');">Inbox <span
@@ -26,7 +26,7 @@
 				</ul>
 			</nav>
 		</aside>
-		<div class="main">
+		<div class="main" id="main">
 			<header class="header">
 				<form action="">
 					<input type="search" name="s" placeholder="Search on simplest" />
@@ -40,7 +40,7 @@
 				</nav>
 				<div class="clr"></div>
 			</header>
-			<div class="container">
+			<div class="container" id="container">
 				<div class="messages">
 					<h1>
 						Inbox <span class="icon icon-arrow-down"></span>
@@ -79,15 +79,9 @@
 					</ul>
 				</div>
 				<section class="message">
-					<h2 id="mail_view_title">
-						
-					</h2>
-					<div class="meta-data" id="mail_view_from">
-						
-					</div>
-					<div class="body" id="mail_view_body">
-						
-					</div>
+					<h2 id="mail_view_title"></h2>
+					<div class="meta-data" id="mail_view_from"></div>
+					<div class="body" id="mail_view_body"></div>
 					<div class="action">
 						<ul class="options">
 							<li><a href="#" class="active">Answering</a></li>
@@ -169,7 +163,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				}
 			});
 		}
-
 		function printMail(Element)
 		{
 			alert(Element.id);
@@ -216,7 +209,17 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 											.createTextNode(item.message));
 								}
 							});
+			}
+		function composeMail() {
+			var cont = document.getElementById("container");
+					
+				 while (cont.hasChildNodes()) {
+				     cont.removeChild(cont.lastChild);
+				 }
+
+			cont.innerHTML='<object data="compose" ></object>';
 		}
+
 	</script>
 
 </body>

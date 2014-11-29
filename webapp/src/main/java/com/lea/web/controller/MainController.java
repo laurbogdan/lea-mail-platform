@@ -93,4 +93,11 @@ public class MainController {
 
 	}
 
+	@RequestMapping(value = "/compose", method = RequestMethod.GET)
+	public ModelAndView composeMail() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("composeMail");
+		return model;
+	}
+
 }

@@ -12,9 +12,9 @@
 		destroy-method="close">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://www.db4free.net:3306/phoenix221" />
-		<property name="username" value="phoenixroot" />
-		<property name="password" value="P@ssword" />
+		<property name="url" value="jdbc:mysql://localhost/mail_platform?user=root" />  <!--  jdbc:mysql://www.db4free.net:3306/phoenix221"-->
+<!-- 		<property name="username" value="phoenixroot" />
+		<property name="password" value="P@ssword" /> -->
 	</bean>
 
 	<bean id="sessionFactory"
