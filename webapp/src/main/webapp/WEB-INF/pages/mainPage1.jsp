@@ -4,7 +4,7 @@
 <title></title>
 <link rel="stylesheet" href="/resources/css/style1.css">
 </head>
-<body onload="getInbox();">
+<body onload="getMails('inbox');">
 	<div class="container app">
 		<aside class="sidebar">
 			<h1 class="logo">
@@ -14,11 +14,11 @@
 				<ul>
 					<li class="active"><br />
 						<a href="#" class="btn btn-primary">Compose new</a>
-						<ul>
-							<li class="active"><a href="#" onclick="getInbox();">Inbox <span
+						<ul id="ul_menu">
+							<li class="active"><a href="#" onclick="getMails('inbox');">Inbox <span
 									class="btn btn-primary">25</span></a></li>
 							<li><a href="#">Drafts</a></li>
-							<li><a href="#">Sent</a></li>
+							<li><a href="#" onclick="getMails('outbox');">Sent</a></li>
 							<li><a href="#">Trash</a></li>
 							<li><a href="#">Junk Mail</a></li>
 						</ul>
@@ -132,10 +132,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 			window.location.href = "/";
 		}
 
-		function getInbox() {
+		function getMails(MailSource) {	
 			$.ajax({
 				type : 'GET',
-				url : "inbox",
+				url : MailSource,
 				async : false,
 				data : "id=${user.id}",
 				success : function(data) {
