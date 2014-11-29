@@ -12,17 +12,17 @@
 			</h1>
 			<nav class="main-nav">
 				<ul>
-					<li class="active"><br />
-						<a href="#" class="btn btn-primary">Compose new</a>
+					<li class="active"><br /> <a href="#" class="btn btn-primary">Compose
+							new</a>
 						<ul id="ul_menu">
-							<li class="active"><a href="#" onclick="getMails('inbox');">Inbox <span
+							<li id="inbox" class="active"><a href="#"
+								onclick="getMails('inbox');">Inbox <span
 									class="btn btn-primary">25</span></a></li>
 							<li><a href="#">Drafts</a></li>
-							<li><a href="#" onclick="getMails('outbox');">Sent</a></li>
+							<li id="sent"><a href="#" onclick="getMails('outbox');">Sent</a></li>
 							<li><a href="#">Trash</a></li>
 							<li><a href="#">Junk Mail</a></li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 			</nav>
 		</aside>
@@ -58,8 +58,7 @@
 								<p>
 									<strong>I've been hunted - </strong>A crazing robot ...
 								</p>
-							</div>
-						</li>
+							</div></li>
 
 						<li class="active"><input type="checkbox" />
 							<div class="preview">
@@ -118,21 +117,28 @@
 							<textarea name="r">Hello Jeremy,
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni fuga velit nobis quas fugit odio voluptas voluptates odit animi quos nam dolorem harum molestiae culpa sint rem ad esse laboriosam vero quod molestias porro ea dolores eligendi!
             </textarea>
-							
+
 						</div>
 					</div>
 				</section>
 			</div>
 		</div>
 	</div>
-	
+
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
 		function logout() {
 			window.location.href = "/";
 		}
 
-		function getMails(MailSource) {	
+		function getMails(MailSource) {
+			if (MailSource == 'inbox') {
+				document.getElementById("inbox").className = "active";
+				document.getElementById("sent").classList.remove("active");
+			} else {
+				document.getElementById("sent").className = "active";
+				document.getElementById("inbox").classList.remove("active");
+			}
 			$.ajax({
 				type : 'GET',
 				url : MailSource,
@@ -144,22 +150,26 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 					$(data).each(
 							function(index, item) {
 								var li = document.createElement("li");
-									var checkbox = document.createElement("input");
-									checkbox.setAttribute("type", "checkbox");
-									var dasDiv = document.createElement("div");
-									dasDiv.setAttribute("class", "preview");
-										var subject = document.createElement("h3");
-										subject.appendChild(document.createTextNode(item.subject));
-										var date = document.createElement("small");
-										date.appendChild(document.createTextNode(item.date));
-										subject.appendChild(date);
+								var checkbox = document.createElement("input");
+								checkbox.setAttribute("type", "checkbox");
+								var dasDiv = document.createElement("div");
+								dasDiv.setAttribute("class", "preview");
+								var subject = document.createElement("h3");
+								subject.appendChild(document
+										.createTextNode(item.subject));
+								var date = document.createElement("small");
+								date.appendChild(document
+										.createTextNode(item.date));
+								subject.appendChild(date);
 
-										var preview = document.createElement("p");
-										var strongText = document.createElement("strong");
-										strongText.appendChild(document.createTextNode(item.message));
-										preview.appendChild(strongText);
-									dasDiv.appendChild(subject);
-									dasDiv.appendChild(preview);
+								var preview = document.createElement("p");
+								var strongText = document
+										.createElement("strong");
+								strongText.appendChild(document
+										.createTextNode(item.message));
+								preview.appendChild(strongText);
+								dasDiv.appendChild(subject);
+								dasDiv.appendChild(preview);
 								li.appendChild(checkbox);
 								li.appendChild(dasDiv);
 
