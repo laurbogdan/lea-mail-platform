@@ -40,7 +40,7 @@ public class MainController {
 		ModelAndView model = new ModelAndView();
 		User user = customerServcice.getUser(id);
 		model.addObject("user", user);
-		model.setViewName("mainPage");
+		model.setViewName("mainPage1");
 		return model;
 
 	}
@@ -79,6 +79,8 @@ public class MainController {
 	@ResponseBody
 	public List<Mail> getInbox(
 			@RequestParam(value = "id", required = true) String id) {
+		for (int i = 0; i < 10; i++)
+			System.out.println(id);
 		return mailService.getInbox(id);
 
 	}

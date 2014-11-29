@@ -37,9 +37,12 @@
 		    async: false,
 		    data: "id=${user.id}",
 		    success: function(data) {
-		    	for (var i = 0; i < data.length; i++) { 
-		    		document.write(data[i].message);
-		    	}
+		    	var ul = $('<ul>').appendTo('body');
+		    	$(data).each(function(index, item) {
+		    	    ul.append(
+		    	        $(document.createElement('li')).text(item.message)
+		    	    );
+		    	});
 		    		       
 		    },
 		    error:function() {
