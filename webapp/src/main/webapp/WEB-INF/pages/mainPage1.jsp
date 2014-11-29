@@ -12,9 +12,8 @@
 			</h1>
 			<nav class="main-nav">
 				<ul>
-					<li><a href="#">Profile</a></li>
-					<li class="active"><a href="#">Email</a><br /> <a href="#"
-						class="btn btn-primary">Compose new</a>
+					<li class="active"><br />
+						<a href="#" class="btn btn-primary">Compose new</a>
 						<ul>
 							<li class="active"><a href="#">Inbox <span
 									class="btn btn-primary">25</span></a></li>
@@ -23,18 +22,7 @@
 							<li><a href="#">Trash</a></li>
 							<li><a href="#">Junk Mail</a></li>
 						</ul>
-						<ul class="labels">
-							<li><a href="#">Clients <span
-									class="btn btn-primary label"></span></a></li>
-							<li><a href="#">Friends <span
-									class="btn btn-primary label"></span></a></li>
-							<li><a href="#">Family <span
-									class="btn btn-primary label"></span></a></li>
-							<li><a href="#">Dribbble <span
-									class="btn btn-primary label"></span></a></li>
-						</ul></li>
-					<li><a href="#">Docs</a></li>
-					<li><a href="#">Stats</a></li>
+					</li>
 				</ul>
 			</nav>
 		</aside>
@@ -61,6 +49,7 @@
 						<input type="search" class="search" placeholder="Search Inbox" />
 					</form>
 					<ul class="message-list">
+
 						<li class="new"><input type="checkbox" />
 							<div class="preview" onclick="getInbox()">
 								<h3>
@@ -69,7 +58,9 @@
 								<p>
 									<strong>I've been hunted - </strong>A crazing robot ...
 								</p>
-							</div></li>
+							</div>
+						</li>
+
 						<li class="active"><input type="checkbox" />
 							<div class="preview">
 								<h3>
@@ -190,12 +181,7 @@
 							<textarea name="r">Hello Jeremy,
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni fuga velit nobis quas fugit odio voluptas voluptates odit animi quos nam dolorem harum molestiae culpa sint rem ad esse laboriosam vero quod molestias porro ea dolores eligendi!
             </textarea>
-							<div class="fileupload container">
-								<span class="fileinfo">My file enclosed.pdf</span>
-								<div class="progress">
-									<div class="bar">65%</div>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 				</section>
