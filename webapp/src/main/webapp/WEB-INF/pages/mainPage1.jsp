@@ -4,7 +4,7 @@
 <title></title>
 <link rel="stylesheet" href="/resources/css/style1.css">
 </head>
-<body>
+<body onload="getInbox();">
 	<div class="container app">
 		<aside class="sidebar">
 			<h1 class="logo">
@@ -15,7 +15,7 @@
 					<li class="active"><br />
 						<a href="#" class="btn btn-primary">Compose new</a>
 						<ul>
-							<li class="active"><a href="#">Inbox <span
+							<li class="active"><a href="#" onclick="getInbox();">Inbox <span
 									class="btn btn-primary">25</span></a></li>
 							<li><a href="#">Drafts</a></li>
 							<li><a href="#">Sent</a></li>
@@ -48,7 +48,7 @@
 					<form action="">
 						<input type="search" class="search" placeholder="Search Inbox" />
 					</form>
-					<ul class="message-list">
+					<ul class="message-list" id="ul_messages">
 
 						<li class="new"><input type="checkbox" />
 							<div class="preview" onclick="getInbox()">
@@ -75,69 +75,6 @@
 								</h3>
 								<p>
 									<strong>Interface design - </strong>Hi Greg ...
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Jeremy Legrand <small>Jul 13</small>
-								</h3>
-								<p>
-									<strong>CSS Responsive - </strong>Here is my hack to ...
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Noe Vella <small>Jul 13</small>
-								</h3>
-								<p>
-									<strong>Personal resume - </strong>Hi Greg, as expected ...
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Dribbble <small>Jul 12</small>
-								</h3>
-								<p>
-									<strong>Thank you for purchaseing a pro account</strong>
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Dribbble <small>Jul 12</small>
-								</h3>
-								<p>
-									<strong>Work inquiry from Andy Blast - </strong>the foll...
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Behance <small>Jul 12</small>
-								</h3>
-								<p>
-									<strong>Raj sent you a direct message - </strong>
-								</p>
-							</div></li>
-						<li class="new"><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Behance <small>Jul 12</small>
-								</h3>
-								<p>
-									<strong>Raj sent you a direct message - </strong>
-								</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Dribbble <small>Jul 11</small>
-								</h3>
-								<p>
-									<strong>Peter Avey is now following you - </strong>Hi ...
 								</p>
 							</div></li>
 					</ul>
@@ -188,6 +125,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 			</div>
 		</div>
 	</div>
+	
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
 		function logout() {
@@ -201,12 +139,31 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				async : false,
 				data : "id=${user.id}",
 				success : function(data) {
-				var ul = $('<ul>').appendTo('body');
-				$(data).each(
-						function(index, item) {
-							ul.append($(document.createElement('li')).text(
-									item.message));
-						});
+					var ulst = document.getElementById("ul_messages");
+					$(data).each(
+							function(index, item) {
+								var li = document.createElement("li");
+									var checkbox = document.createElement("input");
+									checkbox.setAttribute("type", "checkbox");
+									var dasDiv = document.createElement("div");
+									dasDiv.setAttribute("class", "preview");
+										var subject = document.createElement("h3");
+										subject.appendChild(document.createTextNode(item.subject));
+										var date = document.createElement("small");
+										date.appendChild(document.createTextNode(item.date));
+										subject.appendChild(date);
+
+										var preview = document.createElement("p");
+										var strongText = document.createElement("strong");
+										strongText.appendChild(document.createTextNode(item.message));
+										preview.appendChild(strongText);
+									dasDiv.appendChild(subject);
+									dasDiv.appendChild(preview);
+								li.appendChild(checkbox);
+								li.appendChild(dasDiv);
+
+								ulst.appendChild(li);
+							});
 
 				},
 				error : function() {
