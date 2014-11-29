@@ -4,7 +4,7 @@
 <title></title>
 <link rel="stylesheet" href="/resources/css/style1.css">
 </head>
-<body onload="getMails('inbox');">
+<body onload="getMail('inbox');">
 	<div class="container app">
 		<aside class="sidebar">
 			<h1 class="logo">
@@ -16,10 +16,10 @@
 							new</a>
 						<ul id="ul_menu">
 							<li id="inbox" class="active"><a href="#"
-								onclick="getMails('inbox');">Inbox <span
+								onclick="getMail('inbox');">Inbox <span
 									class="btn btn-primary">25</span></a></li>
 							<li><a href="#">Drafts</a></li>
-							<li id="sent"><a href="#" onclick="getMails('outbox');">Sent</a></li>
+							<li id="sent"><a href="#" onclick="getMail('outbox');">Sent</a></li>
 							<li><a href="#">Trash</a></li>
 							<li><a href="#">Junk Mail</a></li>
 						</ul></li>
@@ -79,33 +79,14 @@
 					</ul>
 				</div>
 				<section class="message">
-					<h2>
-						<span class="icon icon-star-large"></span> The brand new season of
-						Top Gear <span class="icon icon-reply-large"></span><span
-							class="icon icon-delete-large"></span>
+					<h2 id="mail_view_title">
+						
 					</h2>
-					<div class="meta-data">
-						<p>
-							<img src="http://placehold.it/40x40" class="avatar" alt="" />
-							Jeremy Clarkson to <span class="user">me</span> <span
-								class="date">July 15, 2013</span>
-						</p>
+					<div class="meta-data" id="mail_view_from">
+						
 					</div>
-					<div class="body">
-						<p>Hi Greg,</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Magnam modi possimus dignissimos maxime ipsa unde voluptatum
-							consectetur harum debitis dolorum quas quibusdam vero iusto
-							ducimus blanditiis. Enim autem illo praesentium est quis ab
-							voluptate sequi quia magnam deleniti vero dicta iste. Harum velit
-							asperiores expedita inventore error nulla eius nostrum voluptas
-							aspernatur at quia eaque ipsa deserunt quas doloribus totam
-							incidunt mollitia iure! Libero laudantium nobis necessitatibus
-							veniam autem molestias distinctio voluptas quos aliquam vitae.
-							Consequuntur adipisci natus hic sed rerum dolore cumque numquam
-							illum rem at quaerat reprehenderit iste quis maiores fuga
-							voluptates delectus suscipit dicta nulla itaque placeat.</p>
-						<p>Cheers</p>
+					<div class="body" id="mail_view_body">
+						
 					</div>
 					<div class="action">
 						<ul class="options">
@@ -127,11 +108,14 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
+		var mailList = null;
+		var currentMail = null;
+
 		function logout() {
 			window.location.href = "/";
 		}
 
-		function getMails(MailSource) {
+		function getMail(MailSource) {
 			if (MailSource == 'inbox') {
 				document.getElementById("inbox").className = "active";
 				document.getElementById("sent").classList.remove("active");
@@ -147,9 +131,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				success : function(data) {
 					var ulst = document.getElementById("ul_messages");
 					ulst.innerHTML = "";
+					mailList = data;
 					$(data).each(
 							function(index, item) {
 								var li = document.createElement("li");
+								li.setAttribute("id", "mail_" + item.id);
+								li.setAttribute("onclick", "printMail(this);")
 								var checkbox = document.createElement("input");
 								checkbox.setAttribute("type", "checkbox");
 								var dasDiv = document.createElement("div");
@@ -181,6 +168,54 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 					alert("Eroare! Va rugam reincercati mai tarziu!");
 				}
 			});
+		}
+
+		function printMail(Element)
+		{
+			alert(Element.id);
+			if(currentMail != null)
+			{
+				document.getElementById(currentMail).classList.remove("active");
+			}
+			document.getElementById(Element.id).className = "active";
+			currentMail = Element.id;
+
+			
+			if(mailList == null){
+				return;
+			}
+			$(mailList).each(
+							function(index, item) {
+								if("mail_" + item.id == Element.id){
+									var title = document.getElementById("mail_view_title");
+									title.innerHTML = "";
+									var span1 = document.createElement("span");
+									span1.setAttribute("class", "icon-star-large");
+									title.appendChild(span1);
+									title.appendChild(document.createTextNode(item.subject));
+									var span2 = document.createElement("span");
+									span2.setAttribute("class", "icon icon-reply-large");
+									title.appendChild(span2);
+									var span3 = document.createElement("span");
+									span3.setAttribute("class", "icon icon-delete-large");
+									title.appendChild(span3);
+
+									var from = document.getElementById("mail_view_from");
+									from.innerHTML = "";
+									var prgf = document.createElement("p");
+									prgf.appendChild(document.createTextNode("From: " + item.id_user_from))
+									var span4 = document.createElement("span");
+									span4.setAttribute("class", "date");
+									span4.appendChild(document.createTextNode(item.date));
+									prgf.appendChild(span4);
+									from.appendChild(prgf);
+
+									var body = document.getElementById("mail_view_body");
+									body.innerHTML = "";
+									body.appendChild(document
+											.createTextNode(item.message));
+								}
+							});
 		}
 	</script>
 
