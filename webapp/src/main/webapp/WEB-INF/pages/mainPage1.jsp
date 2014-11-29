@@ -140,6 +140,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				data : "id=${user.id}",
 				success : function(data) {
 					var ulst = document.getElementById("ul_messages");
+					ulst.innerHTML = "";
 					$(data).each(
 							function(index, item) {
 								var li = document.createElement("li");
