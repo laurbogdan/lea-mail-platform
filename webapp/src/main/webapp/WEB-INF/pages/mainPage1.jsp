@@ -12,8 +12,8 @@
 			</h1>
 			<nav class="main-nav">
 				<ul>
-					<li class="active"><br /> <a href="#"
-						onclick="composeMail();" class="btn btn-primary">Compose new</a>
+					<li class="active"><br /> <a href="#" class="btn btn-primary"
+						onclick="composeMail();">Compose new</a>
 						<ul id="ul_menu">
 							<li id="inbox" class="active"><a href="#"
 								onclick="getMail('inbox');">Inbox <span
@@ -26,7 +26,7 @@
 				</ul>
 			</nav>
 		</aside>
-		<div class="main" id="main">
+		<div class="main">
 			<header class="header">
 				<form action="">
 					<input type="search" name="s" placeholder="Search on simplest" />
@@ -163,63 +163,94 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				}
 			});
 		}
-		function printMail(Element)
-		{
+
+		function printMail(Element) {
 			alert(Element.id);
-			if(currentMail != null)
-			{
+			if (currentMail != null) {
 				document.getElementById(currentMail).classList.remove("active");
 			}
 			document.getElementById(Element.id).className = "active";
 			currentMail = Element.id;
 
-			
-			if(mailList == null){
+			if (mailList == null) {
 				return;
 			}
 			$(mailList).each(
-							function(index, item) {
-								if("mail_" + item.id == Element.id){
-									var title = document.getElementById("mail_view_title");
-									title.innerHTML = "";
-									var span1 = document.createElement("span");
-									span1.setAttribute("class", "icon-star-large");
-									title.appendChild(span1);
-									title.appendChild(document.createTextNode(item.subject));
-									var span2 = document.createElement("span");
-									span2.setAttribute("class", "icon icon-reply-large");
-									title.appendChild(span2);
-									var span3 = document.createElement("span");
-									span3.setAttribute("class", "icon icon-delete-large");
-									title.appendChild(span3);
+					function(index, item) {
+						if ("mail_" + item.id == Element.id) {
+							var title = document
+									.getElementById("mail_view_title");
+							title.innerHTML = "";
+							var span1 = document.createElement("span");
+							span1.setAttribute("class", "icon-star-large");
+							title.appendChild(span1);
+							title.appendChild(document
+									.createTextNode(item.subject));
+							var span2 = document.createElement("span");
+							span2
+									.setAttribute("class",
+											"icon icon-reply-large");
+							title.appendChild(span2);
+							var span3 = document.createElement("span");
+							span3.setAttribute("class",
+									"icon icon-delete-large");
+							title.appendChild(span3);
 
-									var from = document.getElementById("mail_view_from");
-									from.innerHTML = "";
-									var prgf = document.createElement("p");
-									prgf.appendChild(document.createTextNode("From: " + item.id_user_from))
-									var span4 = document.createElement("span");
-									span4.setAttribute("class", "date");
-									span4.appendChild(document.createTextNode(item.date));
-									prgf.appendChild(span4);
-									from.appendChild(prgf);
+							var from = document
+									.getElementById("mail_view_from");
+							from.innerHTML = "";
+							var prgf = document.createElement("p");
+							prgf.appendChild(document.createTextNode("From: "
+									+ item.id_user_from))
+							var span4 = document.createElement("span");
+							span4.setAttribute("class", "date");
+							span4.appendChild(document
+									.createTextNode(item.date));
+							prgf.appendChild(span4);
+							from.appendChild(prgf);
 
-									var body = document.getElementById("mail_view_body");
-									body.innerHTML = "";
-									body.appendChild(document
-											.createTextNode(item.message));
-								}
-							});
-			}
-		function composeMail() {
-			var cont = document.getElementById("container");
-					
-				 while (cont.hasChildNodes()) {
-				     cont.removeChild(cont.lastChild);
-				 }
-
-			cont.innerHTML='<object data="compose" ></object>';
+							var body = document
+									.getElementById("mail_view_body");
+							body.innerHTML = "";
+							body.appendChild(document
+									.createTextNode(item.message));
+						}
+					});
 		}
 
+		function get_XmlHttp() {
+			// Creaza variabila care va contine instanta la XMLHttpRequest, initial cu valoare nula
+			var xmlHttp = null;
+
+			if (window.XMLHttpRequest) { // Daca browser-ul e Forefox, Opera, Safari, ...
+				xmlHttp = new XMLHttpRequest();
+			} else if (window.ActiveXObject) { // Daca browser-ul este Internet Explorer
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			return xmlHttp;
+		}
+
+		function composeMail() {
+			var cont = document.getElementById("container");
+			while (cont.hasChildNodes()) {
+				cont.removeChild(cont.lastChild);
+			}
+			var cerere_http = get_XmlHttp();
+			cerere_http.open("GET", 'compose', true); // Creaza cererea
+
+			// Adauga un Header specific pentru ca datele sa fie recunoscute ca au fost trimise prin POST
+			cerere_http.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded");
+			cerere_http.send("");
+			// Verifica starea cererii
+			// Daca raspunsul e primit complet, il transfera in eticheta HTML cu id-ul din "tagID"
+			cerere_http.onreadystatechange = function() {
+				if (cerere_http.readyState == 4) {
+					cont.innerHTML = cerere_http.responseText;
+				}
+			}
+		}
 	</script>
 
 </body>
