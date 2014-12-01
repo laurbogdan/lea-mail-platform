@@ -1,8 +1,10 @@
 package com.lea.model.response;
 
+import java.io.Serializable;
+
 import com.lea.model.User;
 
-public class LoginResponse {
+public class LoginResponse implements Serializable {
 	private boolean success;
 	private LoginErrors error;
 	private User user;
