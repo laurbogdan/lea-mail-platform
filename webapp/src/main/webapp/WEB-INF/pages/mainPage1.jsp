@@ -139,7 +139,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 					alert("Eroare! Va rugam reincercati mai tarziu!");
 				}
 			});
-			document.getElementById(firstItem).click();
+			if(firstItem != null)
+			{
+				document.getElementById(firstItem).click();
+			}
 		}
 
 		function printMail(Element) {
