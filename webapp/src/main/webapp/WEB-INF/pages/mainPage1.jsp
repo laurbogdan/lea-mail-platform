@@ -8,7 +8,7 @@
 	<div class="container app">
 		<aside class="sidebar">
 			<h1 class="logo">
-				<a href="#">Simpl<strong>est</strong></a>
+				<a href="#" class="logo"><strong>lea</strong> mail platform</a>
 			</h1>
 			<nav class="main-nav">
 				<ul>
@@ -28,9 +28,6 @@
 		</aside>
 		<div class="main">
 			<header class="header">
-				<form action="">
-					<input type="search" name="s" placeholder="Search on simplest" />
-				</form>
 				<nav class="nav-settings">
 					<ul>
 						<li><a href="#">Hi, ${user.username}</a></li>
@@ -50,32 +47,7 @@
 					</form>
 					<ul class="message-list" id="ul_messages">
 
-						<li class="new"><input type="checkbox" />
-							<div class="preview" onclick="getInbox()">
-								<h3>
-									Sarach Connor <small>Jul 15</small>
-								</h3>
-								<p>
-									<strong>I've been hunted - </strong>A crazing robot ...
-								</p>
-							</div></li>
-
-						<li class="active"><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Jeremy Clarkson <small>Jul 15</small>
-								</h3>
-								<p>The brand new season of Top Gear</p>
-							</div></li>
-						<li class=""><input type="checkbox" />
-							<div class="preview">
-								<h3>
-									Eureka.com <small>Jul 14</small>
-								</h3>
-								<p>
-									<strong>Interface design - </strong>Hi Greg ...
-								</p>
-							</div></li>
+						
 					</ul>
 				</div>
 				<section class="message">
@@ -117,6 +89,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				document.getElementById("sent").className = "active";
 				document.getElementById("inbox").classList.remove("active");
 			}
+			firstItem = null;
 			$.ajax({
 				type : 'GET',
 				url : MailSource,
@@ -131,6 +104,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 								var li = document.createElement("li");
 								li.setAttribute("id", "mail_" + item.id);
 								li.setAttribute("onclick", "printMail(this);")
+								if(firstItem == null)
+								{
+									firstItem = "mail_" + item.id;
+								}
 								var checkbox = document.createElement("input");
 								checkbox.setAttribute("type", "checkbox");
 								var dasDiv = document.createElement("div");
@@ -147,7 +124,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 								var strongText = document
 										.createElement("strong");
 								strongText.appendChild(document
-										.createTextNode(item.message));
+										.createTextNode((item.message.length > 50) ? item.message.substring(0, 50) + "..." : item.message));
 								preview.appendChild(strongText);
 								dasDiv.appendChild(subject);
 								dasDiv.appendChild(preview);
@@ -162,10 +139,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 					alert("Eroare! Va rugam reincercati mai tarziu!");
 				}
 			});
+			document.getElementById(firstItem).click();
 		}
 
 		function printMail(Element) {
-			alert(Element.id);
 			if (currentMail != null) {
 				document.getElementById(currentMail).classList.remove("active");
 			}

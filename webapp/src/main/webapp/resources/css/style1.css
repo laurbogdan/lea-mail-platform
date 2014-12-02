@@ -49,6 +49,11 @@ a {
 	color: #fff;
 }
 
+.sidebar .logo {
+	color: #fff;
+	font-size: 22px;
+}
+
 .sidebar h1 {
 	font-weight: 400;
 	background: #19a0c5;
@@ -394,6 +399,33 @@ a {
 	resize: none;
 	outline: none;
 	margin-bottom: 50px;
+}
+
+.message .action .compose_area {
+	background: #fff;
+	padding: 10px;
+	border: 1px solid #ddd;
+	position: relative;
+	margin: 20px 0;
+}
+
+.message .action .compose_area:before {
+	content: '';
+	display: block;
+	border: 10px solid transparent;
+	border-bottom: 10px solid #FFF;
+	position: absolute;
+	top: -19px;
+	left: 25px;
+	-webkit-filter: drop-shadow(0 -1px 0 #ddd);
+}
+
+.message .action .compose_area textarea {
+	width: 100%;
+	appearance: none;
+	border: none;
+	resize: none;
+	outline: none;
 }
 
 .message .action .textarea .fileupload {
