@@ -16,12 +16,8 @@
 						onclick="composeMail();">Compose new</a>
 						<ul id="ul_menu">
 							<li id="inbox" class="active"><a href="#"
-								onclick="getMail('inbox');">Inbox <span
-									class="btn btn-primary">25</span></a></li>
-							<li><a href="#">Drafts</a></li>
+								onclick="getMail('inbox');">Inbox</a></li>
 							<li id="sent"><a href="#" onclick="getMail('outbox');">Sent</a></li>
-							<li><a href="#">Trash</a></li>
-							<li><a href="#">Junk Mail</a></li>
 						</ul></li>
 				</ul>
 			</nav>
@@ -37,14 +33,11 @@
 				</nav>
 				<div class="clr"></div>
 			</header>
-			<div class="container" id="container">
+			<div class="container" id="container_mail">
 				<div class="messages">
-					<h1>
-						Inbox <span class="icon icon-arrow-down"></span>
+					<h1 id="mail_list_name">
+						Inbox
 					</h1>
-					<form action="">
-						<input type="search" class="search" placeholder="Search Inbox" />
-					</form>
 					<ul class="message-list" id="ul_messages">
 
 						
@@ -54,18 +47,27 @@
 					<h2 id="mail_view_title"></h2>
 					<div class="meta-data" id="mail_view_from"></div>
 					<div class="body" id="mail_view_body"></div>
+				</section>
+			</div>
+			<div class="container" id="container_compose" style="display:none">
+				<section class="message">
 					<div class="action">
-						<ul class="options">
-							<li><a href="#" class="active">Answering</a></li>
-							<li><a href="#">Forward</a></li>
-							<div class="clr"></div>
-						</ul>
-						<div class="textarea">
-							<textarea name="r">Hello Jeremy,
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni fuga velit nobis quas fugit odio voluptas voluptates odit animi quos nam dolorem harum molestiae culpa sint rem ad esse laboriosam vero quod molestias porro ea dolores eligendi!
-            </textarea>
+						<p>To:</p>
+						<div class="compose_area">
+							<textarea name="r" placeholder="To" id="to"></textarea>
 
 						</div>
+						<p>Subject:</p>
+						<div class="compose_area">
+							<textarea name="r" placeholder="Subject" id="subject"></textarea>
+
+						</div>
+						<p>Mail message:</p>
+						<div class="compose_area" >
+							<textarea name="r" style="min-height: 100px;" id="daBody"></textarea>
+						</div>
+						<a href="#" class="btn btn-primary"
+									onclick="sendMail();">Send</a>
 					</div>
 				</section>
 			</div>
@@ -76,16 +78,24 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 	<script type="text/javascript">
 		var mailList = null;
 		var currentMail = null;
-
 		function logout() {
 			window.location.href = "/";
 		}
-
 		function getMail(MailSource) {
+			var container_mail = document.getElementById("container_mail");
+			var cotainer_compose = document.getElementById("container_compose");
+			container_compose.setAttribute("style","display:none");
+			container_mail.removeAttribute("style");
 			if (MailSource == 'inbox') {
+				document.getElementById("mail_list_name").innerHTML = "";
+				document.getElementById("mail_list_name").appendChild(document
+										.createTextNode("Inbox"));
 				document.getElementById("inbox").className = "active";
 				document.getElementById("sent").classList.remove("active");
 			} else {
+				document.getElementById("mail_list_name").innerHTML = "";
+				document.getElementById("mail_list_name").appendChild(document
+										.createTextNode("Sent"));
 				document.getElementById("sent").className = "active";
 				document.getElementById("inbox").classList.remove("active");
 			}
@@ -119,7 +129,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 								date.appendChild(document
 										.createTextNode(item.date));
 								subject.appendChild(date);
-
 								var preview = document.createElement("p");
 								var strongText = document
 										.createElement("strong");
@@ -130,10 +139,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 								dasDiv.appendChild(preview);
 								li.appendChild(checkbox);
 								li.appendChild(dasDiv);
-
 								ulst.appendChild(li);
 							});
-
 				},
 				error : function() {
 					alert("Eroare! Va rugam reincercati mai tarziu!");
@@ -144,14 +151,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 				document.getElementById(firstItem).click();
 			}
 		}
-
 		function printMail(Element) {
 			if (currentMail != null) {
 				document.getElementById(currentMail).classList.remove("active");
 			}
 			document.getElementById(Element.id).className = "active";
 			currentMail = Element.id;
-
 			if (mailList == null) {
 				return;
 			}
@@ -175,7 +180,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 							span3.setAttribute("class",
 									"icon icon-delete-large");
 							title.appendChild(span3);
-
 							var from = document
 									.getElementById("mail_view_from");
 							from.innerHTML = "";
@@ -188,7 +192,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 									.createTextNode(item.date));
 							prgf.appendChild(span4);
 							from.appendChild(prgf);
-
 							var body = document
 									.getElementById("mail_view_body");
 							body.innerHTML = "";
@@ -197,39 +200,42 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit qui impedit magni 
 						}
 					});
 		}
-
 		function get_XmlHttp() {
 			// Creaza variabila care va contine instanta la XMLHttpRequest, initial cu valoare nula
 			var xmlHttp = null;
-
 			if (window.XMLHttpRequest) { // Daca browser-ul e Forefox, Opera, Safari, ...
 				xmlHttp = new XMLHttpRequest();
 			} else if (window.ActiveXObject) { // Daca browser-ul este Internet Explorer
 				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 			}
-
 			return xmlHttp;
 		}
-
 		function composeMail() {
-			var cont = document.getElementById("container");
-			while (cont.hasChildNodes()) {
-				cont.removeChild(cont.lastChild);
-			}
-			var cerere_http = get_XmlHttp();
-			cerere_http.open("GET", 'compose', true); // Creaza cererea
+			var container_mail = document.getElementById("container_mail");
+			var cotainer_compose = document.getElementById("container_compose");
+			container_mail.setAttribute("style","display:none");
+			container_compose.removeAttribute("style");
+		}
+		function sendMail()
+		{
+			var to = document.getElementById("to").value;
+			var subject = document.getElementById("subject").value;
+			var dabody = document.getElementById("daBody").value;
 
-			// Adauga un Header specific pentru ca datele sa fie recunoscute ca au fost trimise prin POST
-			cerere_http.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded");
-			cerere_http.send("");
-			// Verifica starea cererii
-			// Daca raspunsul e primit complet, il transfera in eticheta HTML cu id-ul din "tagID"
-			cerere_http.onreadystatechange = function() {
-				if (cerere_http.readyState == 4) {
-					cont.innerHTML = cerere_http.responseText;
-				}
-			}
+			$.ajax({
+					type: 'POST',
+				    url: "login",
+				    async: false,
+				    data: "username=" + username + "&password=" +  password,
+				    success: function(data) {
+				    	if(data.success==true) window.location.href="mainPage?id="+data.user.id;
+				    	else document.getElementById("wrong").style.display = "block";
+				    		       
+				    },
+				    error:function() {
+				    	alert("Eroare! Va rugam reincercati mai tarziu!");
+				    }
+				});
 		}
 	</script>
 
