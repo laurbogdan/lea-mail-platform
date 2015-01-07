@@ -129,7 +129,6 @@ public class MainController {
 			mailList.add(mail.get(i));
 		}
 		return mailList;
-		return mail;
 
 	}
 
