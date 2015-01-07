@@ -1,5 +1,8 @@
 package com.lea.web.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
+	@ResponseBody
 	public void sendMail(
 			@RequestParam(value = "idFrom", required = true) String idFrom,
 			@RequestParam(value = "to", required = true) String to,
@@ -58,11 +62,17 @@ public class MainController {
 		mail.setSubject(subject);
 		mail.setMessage(text);
 
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+
+		mail.setId(dateFormat.format(date));
+
 		mailService.sendMail(mail);
 
 	}
 
-	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
+	@RequestMapping(value = { "/register" }, method = RequestMethod.PUT)
+	@ResponseBody
 	public void registerUser(
 			@RequestParam(value = "username", required = true) String username,
 			@RequestParam(value = "password", required = true) String password,

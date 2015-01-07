@@ -223,14 +223,13 @@
 			var dabody = document.getElementById("daBody").value;
 
 			$.ajax({
-					type: 'POST',
-				    url: "login",
+					type: 'PUT',
+				    url: "sendMail",
 				    async: false,
-				    data: "username=" + username + "&password=" +  password,
+				    data: "to=" + to + "&idFrom=${user.id}" + "&subject=" +  subject + "&text=" + dabody,
 				    success: function(data) {
-				    	if(data.success==true) window.location.href="mainPage?id="+data.user.id;
-				    	else document.getElementById("wrong").style.display = "block";
-				    		       
+				    	alert("Mail-ul s-a trimis cu succes!")
+				    	window.location.href="mainPage?id="+data.user.id; 		       
 				    },
 				    error:function() {
 				    	alert("Eroare! Va rugam reincercati mai tarziu!");
