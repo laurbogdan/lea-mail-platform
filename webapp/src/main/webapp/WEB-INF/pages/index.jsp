@@ -35,8 +35,8 @@
 			</form>
 		</div>
 
-		<div id="register" style="display:none"> 
-			<form name="login-form" class="login-form" >
+		<div id="register" style="display:none" id="register"> 
+			<form name="login-form" class="login-form" action="/upload" enctype="multipart/form-data" method="post" id="eventForm" target="uploader_iframe">
 
 				<div class="header">
 					<h1>Register</h1>
@@ -105,12 +105,14 @@
 				register.setAttribute("style","display:none");
 				login.removeAttribute("style");
 			}
+		}
 		function register() {
+				alert("register");
 				var username = document.getElementById("username_register").value;
 				var password = document.getElementById("password_register").value;
 				var email = document.getElementById("email_register").value;
 				$.ajax({
-					type: 'POST',
+					type: 'PUT',
 				    url: "register",
 				    async: false,
 				    data: "username=" + username + "&password=" +  password + "&email=" +  email,
@@ -122,7 +124,7 @@
 				    }
 				});
 			}
-		}
+		
 	</script>
 
 </body>
