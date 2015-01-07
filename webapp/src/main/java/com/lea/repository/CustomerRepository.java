@@ -25,7 +25,7 @@ public class CustomerRepository {
 		sessionFactory.getCurrentSession().save(user);
 	}
 
-	public User getUserById(String id) {
+	public User getUserById(int id) {
 		return (User) sessionFactory.getCurrentSession().get(User.class, id);
 	}
 

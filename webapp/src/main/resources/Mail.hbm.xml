@@ -21,12 +21,12 @@
 			<column name="date" not-null="false" />
 		</property>
 
-		<property name="id_user_from" type="string">
-			<column name="id_user_from" length="50" not-null="true" />
+		<property name="id_user_from" type="int">
+			<column name="id_user_from" not-null="true" />
 		</property>
 
-		<property name="id_user_to" type="string">
-			<column name="id_user_to" length="50" not-null="true" />
+		<property name="id_user_to" type="int">
+			<column name="id_user_to"  not-null="true" />
 		</property>
 		
 	</class>

@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
 		repository.addUser(user);
 	}
 
-	public User getUser(String id) {
+	public User getUser(int id) {
 		return repository.getUserById(id);
 	}
 

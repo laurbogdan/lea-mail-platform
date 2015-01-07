@@ -7,8 +7,8 @@ public class Mail {
 	private String id;
 	private String subject;
 	private String message;
-	private String id_user_to;
-	private String id_user_from;
+	private int id_user_to;
+	private int id_user_from;
 	private String from;
 	private String to;
 	private boolean is_read;
@@ -38,19 +38,19 @@ public class Mail {
 		this.message = message;
 	}
 
-	public String getId_user_to() {
+	public int getId_user_to() {
 		return id_user_to;
 	}
 
-	public void setId_user_to(String id_user_to) {
+	public void setId_user_to(int id_user_to) {
 		this.id_user_to = id_user_to;
 	}
 
-	public String getId_user_from() {
+	public int getId_user_from() {
 		return id_user_from;
 	}
 
-	public void setId_user_from(String id_user_from) {
+	public void setId_user_from(int id_user_from) {
 		this.id_user_from = id_user_from;
 	}
 

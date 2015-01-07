@@ -39,7 +39,7 @@ public class MainController {
 
 	@RequestMapping(value = "mainPage", method = RequestMethod.GET)
 	public ModelAndView mainPage(
-			@RequestParam(value = "id", required = true) String id) {
+			@RequestParam(value = "id", required = true) int id) {
 		ModelAndView model = new ModelAndView();
 		User user = customerServcice.getUser(id);
 		model.addObject("user", user);
@@ -51,7 +51,7 @@ public class MainController {
 	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
 	@ResponseBody
 	public void sendMail(
-			@RequestParam(value = "idFrom", required = true) String idFrom,
+			@RequestParam(value = "idFrom", required = true) int idFrom,
 			@RequestParam(value = "to", required = true) String to,
 			@RequestParam(value = "subject", required = true) String subject,
 			@RequestParam(value = "text", required = true) String text) {
@@ -100,10 +100,10 @@ public class MainController {
 	@RequestMapping(value = "/inbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Mail> getInbox(
-			@RequestParam(value = "id", required = true) String id) {
+			@RequestParam(value = "id", required = true) int id) {
 		List<Mail> mail = mailService.getInbox(id);
 		for (Mail mailEntry : mail) {
-			String id_from = mailEntry.getId_user_from();
+			int id_from = mailEntry.getId_user_from();
 			mailEntry.setFrom(customerServcice.getUser(id_from).getUsername());
 		}
 		return mail;
@@ -113,10 +113,10 @@ public class MainController {
 	@RequestMapping(value = "/outbox", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Mail> getOutbox(
-			@RequestParam(value = "id", required = true) String id) {
+			@RequestParam(value = "id", required = true) int id) {
 		List<Mail> mail = mailService.getOutbox(id);
 		for (Mail mailEntry : mail) {
-			String id_to = mailEntry.getId_user_to();
+			int id_to = mailEntry.getId_user_to();
 			mailEntry.setTo(customerServcice.getUser(id_to).getUsername());
 		}
 		return mail;

@@ -3,8 +3,8 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.lea.model.User" table="USER">
-		<id name="id" type="string">
-			<column name="id" length="20" />
+		<id name="id" type="int">
+			<column name="id" />
 			<generator class="assigned" />
 		</id>
 		<property name="username" type="string">

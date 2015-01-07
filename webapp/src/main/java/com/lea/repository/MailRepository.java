@@ -15,7 +15,7 @@ public class MailRepository {
 		sessionFactory.getCurrentSession().save(mail);
 	}
 
-	public List<Mail> getInbox(String id) {
+	public List<Mail> getInbox(int id) {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"from Mail where id_user_to=:id_user_to");
 		query.setParameter("id_user_to", id);
@@ -24,7 +24,7 @@ public class MailRepository {
 		return results;
 	}
 
-	public List<Mail> getOutbox(String id) {
+	public List<Mail> getOutbox(int id) {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"from Mail where id_user_from=:id_user_from");
 		query.setParameter("id_user_from", id);

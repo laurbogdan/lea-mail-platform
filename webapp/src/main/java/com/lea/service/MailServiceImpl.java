@@ -13,11 +13,11 @@ public class MailServiceImpl implements MailService {
 		repository.addMail(mail);
 	}
 
-	public List<Mail> getInbox(String id) {
+	public List<Mail> getInbox(int id) {
 		return repository.getInbox(id);
 	}
 
-	public List<Mail> getOutbox(String id) {
+	public List<Mail> getOutbox(int id) {
 		return repository.getOutbox(id);
 	}
 
