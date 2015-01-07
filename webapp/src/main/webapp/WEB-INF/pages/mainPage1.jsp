@@ -78,21 +78,31 @@
 	<script type="text/javascript">
 		var mailList = null;
 		var currentMail = null;
+		var currentPage = 'inbox';
 		function logout() {
 			window.location.href = "/";
 		}
+		window.setInterval(function(){
+			if(currentPage != 'compose')	
+			{
+				getMail(currentPage);
+			}
+		}, 5000);
 		function getMail(MailSource) {
+			clearPrintMail();
 			var container_mail = document.getElementById("container_mail");
 			var cotainer_compose = document.getElementById("container_compose");
 			container_compose.setAttribute("style","display:none");
 			container_mail.removeAttribute("style");
 			if (MailSource == 'inbox') {
+				currentPage = 'inbox';
 				document.getElementById("mail_list_name").innerHTML = "";
 				document.getElementById("mail_list_name").appendChild(document
 										.createTextNode("Inbox"));
 				document.getElementById("inbox").className = "active";
 				document.getElementById("sent").classList.remove("active");
 			} else {
+				currentPage = 'outbox';
 				document.getElementById("mail_list_name").innerHTML = "";
 				document.getElementById("mail_list_name").appendChild(document
 										.createTextNode("Sent"));
@@ -184,8 +194,13 @@
 									.getElementById("mail_view_from");
 							from.innerHTML = "";
 							var prgf = document.createElement("p");
+
 							prgf.appendChild(document.createTextNode("From: "
 									+ item.from));
+
+							prgf.appendChild(document.createTextNode((currentPage == 'inbox')? "From: " + item.from : "To: "
+									+ item.to));
+
 							var span4 = document.createElement("span");
 							span4.setAttribute("class", "date");
 							span4.appendChild(document
@@ -200,6 +215,41 @@
 						}
 					});
 		}
+		function clearPrintMail(){
+			var title = document
+					.getElementById("mail_view_title");
+			title.innerHTML = "";
+			var span1 = document.createElement("span");
+			span1.setAttribute("class", "icon-star-large");
+			title.appendChild(span1);
+			title.appendChild(document
+					.createTextNode(""));
+			var span2 = document.createElement("span");
+			span2
+					.setAttribute("class",
+							"icon icon-reply-large");
+			title.appendChild(span2);
+			var span3 = document.createElement("span");
+			span3.setAttribute("class",
+					"icon icon-delete-large");
+			title.appendChild(span3);
+			var from = document
+					.getElementById("mail_view_from");
+			from.innerHTML = "";
+			var prgf = document.createElement("p");
+			prgf.appendChild(document.createTextNode(""));
+			var span4 = document.createElement("span");
+			span4.setAttribute("class", "date");
+			span4.appendChild(document
+					.createTextNode(""));
+			prgf.appendChild(span4);
+			from.appendChild(prgf);
+			var body = document
+					.getElementById("mail_view_body");
+			body.innerHTML = "";
+			body.appendChild(document
+					.createTextNode(""));
+		}
 		function get_XmlHttp() {
 			// Creaza variabila care va contine instanta la XMLHttpRequest, initial cu valoare nula
 			var xmlHttp = null;
@@ -211,6 +261,7 @@
 			return xmlHttp;
 		}
 		function composeMail() {
+			currentPage = 'compose';
 			var container_mail = document.getElementById("container_mail");
 			var cotainer_compose = document.getElementById("container_compose");
 			container_mail.setAttribute("style","display:none");

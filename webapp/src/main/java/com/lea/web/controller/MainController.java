@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,8 +59,6 @@ public class MainController {
 		Mail mail = new Mail();
 		mail.setId_user_from(idFrom);
 		mail.setId_user_to(customerServcice.getUserByUsername(to).getId());
-		// mail.setTo(to);
-		mail.setFrom(customerServcice.getUser(idFrom).getUsername());
 		mail.setIs_read(false);
 		mail.setSubject(subject);
 		mail.setMessage(text);
@@ -124,4 +123,18 @@ public class MainController {
 
 	}
 
+	@RequestMapping(value = "/compose", method = RequestMethod.GET)
+	public ModelAndView composeMail() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("composeMail");
+		return model;
+	}
+
+	@RequestMapping(value = "/listMail/{mailSource}", method = RequestMethod.GET)
+	public ModelAndView listMail(@PathVariable String mailSource) {
+		ModelAndView model = new ModelAndView();
+		model.addObject("MailSource", mailSource);
+		model.setViewName("listMail");
+		return model;
+	}
 }

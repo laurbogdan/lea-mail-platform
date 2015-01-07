@@ -179,6 +179,10 @@ CONTENT
 	margin-top: 25px;
 }
 
+.login-form .content .email, .login-form .content .pass-icon {
+	margin-top: 25px;
+}
+
 .login-form .content .input:hover {
 	background: #dfe9ec;
 	color: #414848;
