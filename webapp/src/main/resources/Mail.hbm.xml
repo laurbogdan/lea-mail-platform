@@ -28,5 +28,6 @@
 		<property name="id_user_to" type="string">
 			<column name="id_user_to" length="50" not-null="true" />
 		</property>
+		
 	</class>
 </hibernate-mapping>

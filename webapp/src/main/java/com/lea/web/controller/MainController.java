@@ -58,6 +58,8 @@ public class MainController {
 		Mail mail = new Mail();
 		mail.setId_user_from(idFrom);
 		mail.setId_user_to(customerServcice.getUserByUsername(to).getId());
+		// mail.setTo(to);
+		mail.setFrom(customerServcice.getUser(idFrom).getUsername());
 		mail.setIs_read(false);
 		mail.setSubject(subject);
 		mail.setMessage(text);
@@ -100,9 +102,12 @@ public class MainController {
 	@ResponseBody
 	public List<Mail> getInbox(
 			@RequestParam(value = "id", required = true) String id) {
-		for (int i = 0; i < 10; i++)
-			System.out.println(id);
-		return mailService.getInbox(id);
+		List<Mail> mail = mailService.getInbox(id);
+		for (Mail mailEntry : mail) {
+			String id_from = mailEntry.getId_user_from();
+			mailEntry.setFrom(customerServcice.getUser(id_from).getUsername());
+		}
+		return mail;
 
 	}
 
@@ -110,7 +115,12 @@ public class MainController {
 	@ResponseBody
 	public List<Mail> getOutbox(
 			@RequestParam(value = "id", required = true) String id) {
-		return mailService.getOutbox(id);
+		List<Mail> mail = mailService.getOutbox(id);
+		for (Mail mailEntry : mail) {
+			String id_to = mailEntry.getId_user_to();
+			mailEntry.setTo(customerServcice.getUser(id_to).getUsername());
+		}
+		return mail;
 
 	}
 

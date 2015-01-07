@@ -113,7 +113,7 @@
 							function(index, item) {
 								var li = document.createElement("li");
 								li.setAttribute("id", "mail_" + item.id);
-								li.setAttribute("onclick", "printMail(this);")
+								li.setAttribute("onclick", "printMail(this,);")
 								if(firstItem == null)
 								{
 									firstItem = "mail_" + item.id;
@@ -185,7 +185,7 @@
 							from.innerHTML = "";
 							var prgf = document.createElement("p");
 							prgf.appendChild(document.createTextNode("From: "
-									+ item.id_user_from))
+									+ item.from));
 							var span4 = document.createElement("span");
 							span4.setAttribute("class", "date");
 							span4.appendChild(document

@@ -9,6 +9,8 @@ public class Mail {
 	private String message;
 	private String id_user_to;
 	private String id_user_from;
+	private String from;
+	private String to;
 	private boolean is_read;
 	private Timestamp date;
 
@@ -58,6 +60,22 @@ public class Mail {
 
 	public void setIs_read(boolean is_read) {
 		this.is_read = is_read;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
 	}
 
 	/**
