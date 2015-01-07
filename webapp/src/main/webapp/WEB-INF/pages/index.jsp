@@ -115,9 +115,9 @@
 					type: 'PUT',
 				    url: "register",
 				    async: false,
-				    data: "username=" + username + "&password=" +  password + "&email=" +  email,
+				    data: "username=" + username + "&password=" +  password + "&mail=" +  email,
 				    success: function(data) {
-				    	alert("Cont creat cu success")				    		       
+				    	alert("Cont creat cu success");		    		       
 				    },
 				    error:function() {
 				    	alert("Eroare!");
