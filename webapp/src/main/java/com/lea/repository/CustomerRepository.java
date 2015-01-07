@@ -11,7 +11,7 @@ public class CustomerRepository {
 
 	private SessionFactory sessionFactory;
 
-	public User getUser(String username) {
+	public User getUserByUsername(String username) {
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"from User where username=:username");
 		query.setParameter("username", username);

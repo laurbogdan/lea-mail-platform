@@ -1,6 +1,5 @@
 package com.lea.web.controller;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,23 +45,35 @@ public class MainController {
 	}
 
 	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
-	public void sendMail() {
+	public void sendMail(
+			@RequestParam(value = "idFrom", required = true) String idFrom,
+			@RequestParam(value = "to", required = true) String to,
+			@RequestParam(value = "subject", required = true) String subject,
+			@RequestParam(value = "text", required = true) String text) {
 
 		Mail mail = new Mail();
-		mail.setId_user_from("2");
-		mail.setId_user_to("1");
-		mail.setId("100");
-		mail.setMessage("Primul mail trimi din aplicatie");
-		mail.setSubject("First mail");
-		mail.setDate(new Timestamp(12132158));
+		mail.setId_user_from(idFrom);
+		mail.setId_user_to(customerServcice.getUserByUsername(to).getId());
+		mail.setIs_read(false);
+		mail.setSubject(subject);
+		mail.setMessage(text);
+
 		mailService.sendMail(mail);
 
+	}
+
+	@RequestMapping(value = { "/sendMail" }, method = RequestMethod.PUT)
+	public void registerUser(
+			@RequestParam(value = "username", required = true) String username,
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "mail", required = true) String mail) {
+
 		User user = new User();
-		user.setEmail("mail");
-		user.setId("4");
-		user.setPassword("123");
-		user.setUsername("cristi");
-		// customerServcice.addUser(user);
+		user.setEmail(mail);
+		user.setUsername(username);
+		user.setPassword(password);
+
+		customerServcice.addUser(user);
 
 	}
 
@@ -91,13 +102,6 @@ public class MainController {
 			@RequestParam(value = "id", required = true) String id) {
 		return mailService.getOutbox(id);
 
-	}
-
-	@RequestMapping(value = "/compose", method = RequestMethod.GET)
-	public ModelAndView composeMail() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("composeMail");
-		return model;
 	}
 
 }

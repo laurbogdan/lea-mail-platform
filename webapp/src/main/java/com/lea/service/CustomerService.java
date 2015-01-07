@@ -10,4 +10,6 @@ public interface CustomerService {
 	public void addUser(User user);
 
 	public User getUser(String id);
+
+	public User getUserByUsername(String username);
 }

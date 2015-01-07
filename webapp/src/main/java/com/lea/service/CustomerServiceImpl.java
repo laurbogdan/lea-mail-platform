@@ -10,7 +10,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository repository;
 
 	public LoginResponse login(String username, String password) {
-		User user = repository.getUser(username);
+		User user = repository.getUserByUsername(username);
 		LoginResponse response = new LoginResponse();
 		if (user == null) {
 			response.setSuccess(false);
@@ -39,4 +39,9 @@ public class CustomerServiceImpl implements CustomerService {
 		this.repository = repository;
 	}
 
+	public User getUserByUsername(String username) {
+
+		return repository.getUserByUsername(username);
+
+	}
 }
