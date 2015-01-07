@@ -123,7 +123,7 @@
 							function(index, item) {
 								var li = document.createElement("li");
 								li.setAttribute("id", "mail_" + item.id);
-								li.setAttribute("onclick", "printMail(this,);")
+								li.setAttribute("onclick", "printMail(this);")
 								if(firstItem == null)
 								{
 									firstItem = "mail_" + item.id;
@@ -194,13 +194,14 @@
 									.getElementById("mail_view_from");
 							from.innerHTML = "";
 							var prgf = document.createElement("p");
-
-							prgf.appendChild(document.createTextNode("From: "
-									+ item.from));
-
-							prgf.appendChild(document.createTextNode((currentPage == 'inbox')? "From: " + item.from : "To: "
-									+ item.to));
-
+							if(currentPage == 'inbox')
+							{
+								prgf.appendChild(document.createTextNode("From: " + item.from));
+							}
+							else
+							{
+								prgf.appendChild(document.createTextNode("To: " + item.to));
+							}
 							var span4 = document.createElement("span");
 							span4.setAttribute("class", "date");
 							span4.appendChild(document
@@ -237,7 +238,7 @@
 					.getElementById("mail_view_from");
 			from.innerHTML = "";
 			var prgf = document.createElement("p");
-			prgf.appendChild(document.createTextNode(""));
+			prgf.appendChild(document.createTextNode(" "));
 			var span4 = document.createElement("span");
 			span4.setAttribute("class", "date");
 			span4.appendChild(document
@@ -274,13 +275,14 @@
 			var dabody = document.getElementById("daBody").value;
 
 			$.ajax({
-					type: 'PUT',
-				    url: "sendMail",
+					type: 'POST',
+				    url: "login",
 				    async: false,
-				    data: "to=" + to + "&idFrom=${user.id}" + "&subject=" +  subject + "&text=" + dabody,
+				    data: "username=" + username + "&password=" +  password,
 				    success: function(data) {
-				    	alert("Mail-ul s-a trimis cu succes!")
-				    	window.location.href="mainPage?id="+data.user.id; 		       
+				    	if(data.success==true) window.location.href="mainPage?id="+data.user.id;
+				    	else document.getElementById("wrong").style.display = "block";
+				    		       
 				    },
 				    error:function() {
 				    	alert("Eroare! Va rugam reincercati mai tarziu!");
