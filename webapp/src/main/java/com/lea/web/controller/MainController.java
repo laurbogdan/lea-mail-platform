@@ -2,6 +2,7 @@ package com.lea.web.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,7 +107,11 @@ public class MainController {
 			int id_from = mailEntry.getId_user_from();
 			mailEntry.setFrom(customerServcice.getUser(id_from).getUsername());
 		}
-		return mail;
+		List<Mail> mailList = new ArrayList<Mail>();
+		for (int i = mail.size() - 1; i >= 0; i--) {
+			mailList.add(mail.get(i));
+		}
+		return mailList;
 
 	}
 
@@ -119,6 +124,11 @@ public class MainController {
 			int id_to = mailEntry.getId_user_to();
 			mailEntry.setTo(customerServcice.getUser(id_to).getUsername());
 		}
+		List<Mail> mailList = new ArrayList<Mail>();
+		for (int i = mail.size() - 1; i >= 0; i--) {
+			mailList.add(mail.get(i));
+		}
+		return mailList;
 		return mail;
 
 	}

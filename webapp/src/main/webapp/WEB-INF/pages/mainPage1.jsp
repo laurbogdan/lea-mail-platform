@@ -85,7 +85,7 @@
 		window.setInterval(function(){
 			if(currentPage != 'compose')	
 			{
-				getMail(currentPage);
+				//getMail(currentPage);
 			}
 		}, 5000);
 		function getMail(MailSource) {
@@ -156,6 +156,7 @@
 					alert("Eroare! Va rugam reincercati mai tarziu!");
 				}
 			});
+			currentMail=null;
 			if(firstItem != null)
 			{
 				document.getElementById(firstItem).click();
