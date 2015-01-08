@@ -137,7 +137,7 @@
 										.createTextNode(item.subject));
 								var date = document.createElement("small");
 								date.appendChild(document
-										.createTextNode(item.date));
+										.createTextNode(item.id));
 								subject.appendChild(date);
 								var preview = document.createElement("p");
 								var strongText = document
@@ -206,7 +206,7 @@
 							var span4 = document.createElement("span");
 							span4.setAttribute("class", "date");
 							span4.appendChild(document
-									.createTextNode(item.date));
+									.createTextNode(item.id));
 							prgf.appendChild(span4);
 							from.appendChild(prgf);
 							var body = document
